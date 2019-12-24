@@ -1,12 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import JobList from './JobList.js';
+import DetailView from './DetailView.js';
 
-ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+class DreamJob extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {job: {}};
+
+    this.handleToUpdate = (job) => {
+      this.setState({
+        job: job
+      }, () => console.log(this.state.job));
+    }
+    this.handleToUpdate = this.handleToUpdate.bind(this);
+  }
+
+
+  render() {
+    return (
+      <div className="main">
+        <div>
+          <JobList handleToUpdate = {this.handleToUpdate} />
+        </div>
+        <div className="detail-view">
+          <DetailView job={this.state.job}/>
+        </div>
+      </div>
+    );
+  }
+}
+
+// ========================================
+
+ReactDOM.render(
+  <DreamJob />,
+  document.getElementById('root')
+);
+
